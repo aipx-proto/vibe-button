@@ -74,7 +74,6 @@
 </button>
 <style>
   :host {
-    color-scheme: dark;
   }
 
   button#trigger {
@@ -90,12 +89,12 @@
     width: 64px;
     padding: 0;
     border-radius: 50%;
-    background-color: #333;
-    border: 1px solid #666;
+    background-color: color-mix(in srgb, Canvas, CanvasText 5%);
+    border: 1px solid color-mix(in srgb, Canvas, CanvasText 15%);
 
     &:hover {
-      background-color: #444;
-      border-color: #888;
+      background-color: color-mix(in srgb, Canvas, CanvasText 15%);
+      border: 1px solid color-mix(in srgb, Canvas, CanvasText 25%);
     }
 
     .logo {
@@ -123,8 +122,9 @@
   }
 
   dialog[open] {
+    color-scheme: dark;
     width: 24rem;
-    border: 1px solid;
+    border: 1px solid #666;
     border-radius: 8px;
     display: grid;
     gap: 1rem;
