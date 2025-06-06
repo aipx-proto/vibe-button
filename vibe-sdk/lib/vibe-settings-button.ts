@@ -90,9 +90,7 @@ export class VibeSettingsButton extends HTMLElement {
       { signal: abortController.signal }
     );
 
-    this.doneButton.addEventListener("click", (e) => {
-      this.dialog.close();
-    });
+    this.doneButton.addEventListener("click", () => this.dialog.close());
 
     this.trigger.addEventListener(
       "click",
