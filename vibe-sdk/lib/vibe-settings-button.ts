@@ -20,10 +20,6 @@ export class VibeSettingsButton extends HTMLElement {
 
   private abortControllers = [] as AbortController[];
 
-  constructor() {
-    super();
-  }
-
   connectedCallback() {
     const abortController = new AbortController();
     this.abortControllers.push(abortController);
@@ -31,10 +27,75 @@ export class VibeSettingsButton extends HTMLElement {
     this.loadFormValues();
     this.form.addEventListener("input", () => this.saveFormValues(), { signal: abortController.signal });
 
+    // Add drag functionality
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let initialX = 0;
+    let initialY = 0;
+    let wasDragging = false; // Track if we were recently dragging
+
+    this.trigger.addEventListener(
+      "mousedown",
+      (e) => {
+        isDragging = true;
+        wasDragging = false;
+        startX = e.clientX;
+        startY = e.clientY;
+
+        // Get current CSS variable values or default to 0
+        const computedStyle = getComputedStyle(this.trigger);
+        initialX = parseInt(computedStyle.getPropertyValue("--x")) || 0;
+        initialY = parseInt(computedStyle.getPropertyValue("--y")) || 0;
+
+        e.preventDefault(); // Prevent text selection
+      },
+      { signal: abortController.signal }
+    );
+
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        if (!isDragging) return;
+
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
+
+        // Consider it dragging if moved more than a few pixels
+        if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
+          wasDragging = true;
+        }
+
+        const newX = initialX + deltaX;
+        const newY = initialY + deltaY;
+
+        this.trigger.style.setProperty("--x", `${newX}px`);
+        this.trigger.style.setProperty("--y", `${newY}px`);
+      },
+      { signal: abortController.signal }
+    );
+
+    document.addEventListener(
+      "mouseup",
+      () => {
+        if (isDragging) {
+          isDragging = false;
+          // Reset wasDragging after a short delay to allow click event to check it
+          setTimeout(() => {
+            wasDragging = false;
+          }, 10);
+        }
+      },
+      { signal: abortController.signal }
+    );
+
     this.trigger.addEventListener(
       "click",
-      () => {
-        this.dialog.showModal();
+      (_e) => {
+        // Only show dialog if we weren't dragging
+        if (!wasDragging) {
+          this.dialog.showModal();
+        }
       },
       {
         signal: abortController.signal,
