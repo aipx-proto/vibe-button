@@ -131,7 +131,21 @@ export class VibeSettingsButton extends HTMLElement {
     this.abortControllers = [];
   }
 
-  getClient(): AzureOpenAI | null {
+  get model(): string {
+    const savedConfig = localStorage.getItem("vibe-settings");
+    if (savedConfig) {
+      try {
+        const config = JSON.parse(savedConfig) as Record<string, string>;
+        return config["aoai-deployment"] || "";
+      } catch (e) {
+        console.error("Failed to parse saved configuration:", e);
+        return "";
+      }
+    }
+    return "";
+  }
+
+  get client(): AzureOpenAI | null {
     const savedConfig = localStorage.getItem("vibe-settings");
     if (savedConfig) {
       try {
