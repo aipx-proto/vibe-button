@@ -1,14 +1,25 @@
 {
   "name": "vibe-sdk",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/vibe-sdk.js",
+      "require": "./dist/vibe-sdk.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vibe-sdk.umd.cjs",
+  "module": "./dist/vibe-sdk.js",
   "devDependencies": {
+    "@types/node": "^22.15.30",
     "prettier": "^3.5.3",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
