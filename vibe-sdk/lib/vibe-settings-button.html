@@ -121,14 +121,29 @@
     top: auto;
   }
 
-  dialog[open] {
+  dialog {
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
     color-scheme: dark;
     width: 24rem;
     border: 1px solid #666;
     border-radius: 8px;
-    display: grid;
     gap: 1rem;
     padding: 1rem 1rem 2rem 1rem;
+  }
+
+  dialog[open] {
+    display: grid;
   }
 
   h1 {
