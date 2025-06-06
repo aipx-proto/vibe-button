@@ -13,6 +13,7 @@ export class VibeSettingsButton extends HTMLElement {
   shadowRoot = attachHTML(this, template);
   private trigger = this.shadowRoot.querySelector<HTMLButtonElement>("#trigger")!;
   private dialog = this.shadowRoot.querySelector<HTMLDialogElement>("dialog")!;
+  private doneButton = this.shadowRoot.querySelector<HTMLButtonElement>("#done")!;
   private testButton = this.shadowRoot.querySelector<HTMLButtonElement>("#test")!;
   private deleteButton = this.shadowRoot.querySelector<HTMLButtonElement>("#delete")!;
   private form = this.shadowRoot.querySelector<HTMLFormElement>("#settings-form")!;
@@ -89,6 +90,10 @@ export class VibeSettingsButton extends HTMLElement {
       { signal: abortController.signal }
     );
 
+    this.doneButton.addEventListener("click", (e) => {
+      this.dialog.close();
+    });
+
     this.trigger.addEventListener(
       "click",
       (_e) => {
@@ -124,6 +129,33 @@ export class VibeSettingsButton extends HTMLElement {
   disconnectedCallback() {
     this.abortControllers.forEach((controller) => controller.abort());
     this.abortControllers = [];
+  }
+
+  getClient() {
+    const savedConfig = localStorage.getItem("vibe-settings");
+    if (savedConfig) {
+      try {
+        const config = JSON.parse(savedConfig) as Record<string, string>;
+        const endpoint = config["aoai-endpoint"];
+        const apiKey = config["aoai-api-key"];
+        const deployment = config["aoai-deployment"];
+        if (!endpoint || !apiKey || !deployment) {
+          const isOpenConfigConfirmed = window.confirm("Incomplete Azure OpenAI configuration found. Would you like to reconfigure it?", "Yes");
+          if (isOpenConfigConfirmed) this.dialog.showModal();
+          return null;
+        }
+        return new AzureOpenAI({
+          dangerouslyAllowBrowser: true,
+          endpoint,
+          apiKey,
+          deployment,
+          apiVersion: "2025-04-01-preview",
+        });
+      } catch (e) {
+        console.error("Failed to parse saved configuration:", e);
+        return null;
+      }
+    }
   }
 
   private validateForm(): boolean {
