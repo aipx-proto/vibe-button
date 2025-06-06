@@ -131,7 +131,7 @@ export class VibeSettingsButton extends HTMLElement {
     this.abortControllers = [];
   }
 
-  getClient() {
+  getClient(): AzureOpenAI | null {
     const savedConfig = localStorage.getItem("vibe-settings");
     if (savedConfig) {
       try {
@@ -156,6 +156,8 @@ export class VibeSettingsButton extends HTMLElement {
         return null;
       }
     }
+
+    return null;
   }
 
   private validateForm(): boolean {
