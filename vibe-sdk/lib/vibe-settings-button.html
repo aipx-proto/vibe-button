@@ -1,0 +1,141 @@
+<button id="trigger">Settings</button>
+<style>
+  :host {
+    color-scheme: dark;
+  }
+
+  button#trigger {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+
+  :host([position="top-left"]) button#trigger {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    bottom: auto;
+  }
+  :host([position="top-right"]) button#trigger {
+    top: 10px;
+    right: 10px;
+    bottom: auto;
+  }
+  :host([position="bottom-left"]) button#trigger {
+    bottom: 10px;
+    left: 10px;
+    right: auto;
+    top: auto;
+  }
+
+  dialog[open] {
+    width: 40rem;
+    border: 1px solid;
+    border-radius: 8px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .test-output {
+    &:has(pre:empty) {
+      display: none;
+    }
+  }
+
+  pre {
+    margin: 0;
+    white-space: pre-wrap;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--background-color, #007bff);
+    color: var(--text-color, white);
+    border: 1px solid var(--border-color, transparent);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+
+    &:hover {
+      color: var(--text-hover-color, white);
+      background-color: var(--background-hover-color, #0056b3);
+      border-color: var(--border-hover-color, transparent);
+    }
+
+    --text-color: white;
+    --background-color: #007bff;
+    --background-hover-color: #0056b3;
+
+    &.subtle {
+      --background-color: transparent;
+      --text-color: #ccc;
+      --border-color: #ccc;
+      --text-hover-color: white;
+      --background-hover-color: #666;
+    }
+
+    &.danger {
+      --background-color: transparent;
+      --text-color: #dc3545;
+      --border-color: #dc3545;
+      --text-hover-color: white;
+      --background-hover-color: #c82333;
+    }
+  }
+</style>
+<dialog>
+  <form id="settings-form" method="dialog">
+    <div class="field-group">
+      <label for="aoai-endpoint">Azure OpenAI Endpoint</label>
+      <input type="url" id="aoai-endpoint" name="aoaiEndppoint" required placeholder="https://example-endpoint.azure.com/" />
+    </div>
+    <div class="field-group">
+      <label for="aoai-deployment">Azure OpenAI Deployment Name</label>
+      <input type="text" name="aoaiDeployment" id="aoai-deployment" required placeholder="gpt-4.1-mini" />
+    </div>
+    <div class="field-group">
+      <label for="aoai-api-key">Azure OpenAI API Key</label>
+      <input type="password" id="aoai-api-key" name="aoaiApiKey" required />
+    </div>
+    <div class="test-output">
+      <pre id="test-output"></pre>
+    </div>
+    <div class="button-group">
+      <button id="test" class="subtle" type="button">Test</button>
+      <button type="submit">Done</button>
+      <button class="danger" id="delete" type="button">Delete</button>
+    </div>
+  </form>
+</dialog>
