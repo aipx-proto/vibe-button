@@ -20,11 +20,12 @@
     </div>
 
     <script>
-      async function sendMessage() {
-        const input = document.getElementById("userInput");
-        const output = document.getElementById("chatOutput");
-        const message = input.value.trim();
+      const input = document.getElementById("userInput");
+      const output = document.getElementById("chatOutput");
+      const { client, model } = document.querySelector("vibe-settings-button");
 
+      async function sendMessage() {
+        const message = input.value.trim();
         if (!message) return;
 
         // Clear input and show user message
@@ -32,8 +33,6 @@
         output.textContent += `User: ${message}\n\nAssistant: `;
 
         try {
-          const { client, model } = document.querySelector("vibe-settings-button");
-
           if (!client) {
             output.textContent += "Please configure your Azure OpenAI settings first by clicking the settings button.\n\n";
             return;
@@ -59,10 +58,8 @@
       }
 
       // Allow Enter key to send message
-      document.getElementById("userInput").addEventListener("keypress", function (e) {
-        if (e.key === "Enter") {
-          sendMessage();
-        }
+      document.getElementById("userInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") sendMessage();
       });
     </script>
   </body>

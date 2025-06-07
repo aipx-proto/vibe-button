@@ -134,7 +134,7 @@ export class VibeSettingsButton extends HTMLElement {
     if (savedConfig) {
       try {
         const config = JSON.parse(savedConfig) as Record<string, string>;
-        return config["aoai-deployment"] || "";
+        return config["aoaiDeployment"] || "";
       } catch (e) {
         console.error("Failed to parse saved configuration:", e);
         return "";
