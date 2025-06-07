@@ -4,15 +4,13 @@
 
 Include a script tag in <head> of html
 
-```html
+````html
 <script type="module" src="https://esm.sh/vibe-sdk"></script>
-``
-
-Put the settings button somewhere in the <body> of your HTML
-
-```html
-<vibe-settings-button></vibe-settings-button>
-```
+`` Put the settings button somewhere in the
+<body>
+  of your HTML ```html <vibe-settings-button></vibe-settings-button>
+</body>
+````
 
 To display it at a specific corner of the screen, set `position`. Default is `"bottom-right"`.
 
@@ -27,37 +25,52 @@ To display it at a specific corner of the screen, set `position`. Default is `"b
 
 The user can click the <vibe-settings-button> to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
 
-The developer can get the SDK instance by querying the button element:
+As a developer, you MUST query the settings object after the SDK script tag is loaded.
+You get the SDK instance by querying the button element:
 
 ```javascript
-const client = document.querySelector('vibe-settings-button').getClient();
+const settings = document.querySelector("vibe-settings-button").settings;
 ```
 
-The `client` object is the same as the return value of `new AzureOpenAI({...})` as documented in `https://github.com/openai/openai-node`.
-Unlike OpenAI, you must retrieve the user selected model from the button element.
+The `settings` object contains all the necessary properties to construct the `new AzureOpenAI({...})` instance as documented in `https://github.com/openai/openai-node`. Note that the `AzureOpenAI` constructor only requires `endpoint`, `apiKey`, `deployment`, and `apiVersion` properties. The `model` property is only used for creating the response.
 
 ```javascript
-const { client, model } = document.querySelector('vibe-settings-button');
+import { AzureOpenAI } from 'https://esm.sh/openai';
 
-const response = await client.responses.create({
-  model,
-  instructions: 'You are a coding assistant that talks like a pirate',
-  input: 'Are semicolons optional in JavaScript?',
-});
+function submitChat() {
+  const settings = document.querySelector('vibe-settings-button').settings;
+  const client = new AzureOpenAI({
+    endpoint: settings.endpoint,
+    apiKey: settings.apiKey,
+    deployment: settings.deployment,
+    apiVersion: settings.apiVersion,
+  });
+  const response = await client.responses.create({
+    model: settings.model,
+    instructions: 'You are a coding assistant that talks like a pirate',
+    input: 'Are semicolons optional in JavaScript?',
+  });
 
-console.log(response.output_text);
+  console.log(response.output_text);
+}
 ```
 
 To stream the response, you can set `stream: true`
-```javascript
-const { client, model } = document.querySelector('vibe-settings-button');
-const stream = await client.responses.create({
-  model,
-  input: 'Say "Sheep sleep deep" ten times fast!',
-  stream: true,
-});
 
-for await (const event of stream) {
-  console.log(event);
+```javascript
+function streamChat() {
+  const { client, model } = document.querySelector("vibe-settings-button");
+  const stream = await client.responses.create({
+    model,
+    input: 'Say "Sheep sleep deep" ten times fast!',
+    stream: true,
+  });
+
+  for await (const event of stream) {
+    console.log(event);
+  }
 }
 ```
+
+The `AzureOpenAI` constructor is not provided by the SDK.
+If in the browser environment, we recommend using `https://esm.sh/openai`. Otherwise, you can use `openai` package from npm.

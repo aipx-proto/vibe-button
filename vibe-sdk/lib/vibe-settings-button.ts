@@ -129,22 +129,15 @@ export class VibeSettingsButton extends HTMLElement {
     this.abortControllers = [];
   }
 
-  get model(): string {
+  get settings(): {
+    endpoint: string;
+    apiKey: string;
+    deployment: string;
+    model: string;
+    apiVersion: string;
+  } {
     const savedConfig = localStorage.getItem("vibe-settings");
-    if (savedConfig) {
-      try {
-        const config = JSON.parse(savedConfig) as Record<string, string>;
-        return config["aoaiDeployment"] || "";
-      } catch (e) {
-        console.error("Failed to parse saved configuration:", e);
-        return "";
-      }
-    }
-    return "";
-  }
-
-  get client(): AzureOpenAI | null {
-    const savedConfig = localStorage.getItem("vibe-settings");
+    const emptyConfig = { endpoint: "", apiKey: "", deployment: "", model: "", apiVersion: "" };
     if (savedConfig) {
       try {
         const config = JSON.parse(savedConfig) as Record<string, string>;
@@ -154,22 +147,22 @@ export class VibeSettingsButton extends HTMLElement {
         if (!endpoint || !apiKey || !deployment) {
           const isOpenConfigConfirmed = window.confirm("Incomplete Azure OpenAI configuration found. Would you like to reconfigure it?");
           if (isOpenConfigConfirmed) this.dialog.showModal();
-          return null;
+          return emptyConfig;
         }
-        return new AzureOpenAI({
-          dangerouslyAllowBrowser: true,
+        return {
           endpoint,
           apiKey,
           deployment,
+          model: deployment,
           apiVersion: "2025-04-01-preview",
-        });
+        };
       } catch (e) {
         console.error("Failed to parse saved configuration:", e);
-        return null;
+        return emptyConfig;
       }
     }
 
-    return null;
+    return emptyConfig;
   }
 
   private validateForm(): boolean {
