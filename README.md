@@ -4,13 +4,16 @@
 
 Include a script tag in <head> of html
 
-````html
+```html
 <script type="module" src="https://esm.sh/vibe-sdk"></script>
-`` Put the settings button somewhere in the
+```
+Put the settings button somewhere in the `<body>` of your HTML
+
+```html
 <body>
-  of your HTML ```html <vibe-settings-button></vibe-settings-button>
+  <vibe-settings-button></vibe-settings-button>
 </body>
-````
+```
 
 To display it at a specific corner of the screen, set `position`. Default is `"bottom-right"`.
 
@@ -23,10 +26,10 @@ To display it at a specific corner of the screen, set `position`. Default is `"b
 
 ## Usage
 
-The user can click the <vibe-settings-button> to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
+The user can click the `<vibe-settings-button>` to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
 
-As a developer, you MUST query the settings object after the SDK script tag is loaded.
-You get the SDK instance by querying the button element:
+As a developer, you must query the settings object **after** the SDK script tag is loaded.
+You can instantiate an AzureOpenAI client instance using the settings from the button element:
 
 ```javascript
 const settings = document.querySelector("vibe-settings-button").settings;
