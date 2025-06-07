@@ -148,9 +148,9 @@ export class VibeSettingsButton extends HTMLElement {
     if (savedConfig) {
       try {
         const config = JSON.parse(savedConfig) as Record<string, string>;
-        const endpoint = config["aoai-endpoint"];
-        const apiKey = config["aoai-api-key"];
-        const deployment = config["aoai-deployment"];
+        const endpoint = config["aoaiEndpoint"];
+        const apiKey = config["aoaiDeployment"];
+        const deployment = config["aoaiApiKey"];
         if (!endpoint || !apiKey || !deployment) {
           const isOpenConfigConfirmed = window.confirm("Incomplete Azure OpenAI configuration found. Would you like to reconfigure it?");
           if (isOpenConfigConfirmed) this.dialog.showModal();

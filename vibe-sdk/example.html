@@ -4,12 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
-    <script type="module" src="https://esm.sh/vibe-sdk@0.0.3"></script>
+    <script type="module" src="https://esm.sh/vibe-sdk@0.0.4"></script>
   </head>
   <body>
     <vibe-settings-button position="top-left"></vibe-settings-button>
     <vibe-settings-button position="top-right"></vibe-settings-button>
     <vibe-settings-button position="bottom-left"></vibe-settings-button>
     <vibe-settings-button position="bottom-right"></vibe-settings-button>
+
+    <div style="margin: 20px; max-width: 600px">
+      <h2>Chat Stream Example</h2>
+      <input type="text" id="userInput" placeholder="Type your message..." style="width: 400px; padding: 8px" />
+      <button onclick="sendMessage()" style="padding: 8px 16px">Send</button>
+      <div id="chatOutput" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 200px; white-space: pre-wrap"></div>
+    </div>
+
+    <script>
+      async function sendMessage() {
+        const input = document.getElementById("userInput");
+        const output = document.getElementById("chatOutput");
+        const message = input.value.trim();
+
+        if (!message) return;
+
+        // Clear input and show user message
+        input.value = "";
+        output.textContent += `User: ${message}\n\nAssistant: `;
+
+        try {
+          const { client, model } = document.querySelector("vibe-settings-button");
+
+          if (!client) {
+            output.textContent += "Please configure your Azure OpenAI settings first by clicking the settings button.\n\n";
+            return;
+          }
+
+          const stream = await client.responses.create({
+            model,
+            instructions: "You are a helpful assistant.",
+            input: message,
+            stream: true,
+          });
+
+          for await (const event of stream) {
+            if (event.output_text) {
+              output.textContent += event.output_text;
+            }
+          }
+
+          output.textContent += "\n\n";
+        } catch (error) {
+          output.textContent += `Error: ${error.message}\n\n`;
+        }
+      }
+
+      // Allow Enter key to send message
+      document.getElementById("userInput").addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+    </script>
   </body>
 </html>

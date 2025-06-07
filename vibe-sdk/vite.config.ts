@@ -9,5 +9,6 @@ export default defineConfig({
       name: "VibeSDK",
       fileName: "vibe-sdk",
     },
+    sourcemap: "inline",
   },
 });
