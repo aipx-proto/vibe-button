@@ -1,6 +1,6 @@
 # Vibe Button
 
-Connect your user to Azure OpenAI with a single button.
+A single button that connects your user to Azure OpenAI
 
 [Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-button-demo/)
 
