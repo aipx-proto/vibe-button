@@ -1,3 +1,3 @@
-import { VibeSettingsButton } from "./vibe-settings-button";
+import { VibeButton } from "./vibe-button";
 
-VibeSettingsButton.define();
+VibeButton.define();

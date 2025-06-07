@@ -1,40 +1,41 @@
 # Vibe SDK documentation
 
-[Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-sdk-demo/)
+[Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-button-demo/)
 
 ## Install
 
 Include a script tag in <head> of html
 
 ```html
-<script type="module" src="https://esm.sh/vibe-sdk"></script>
+<script type="module" src="https://esm.sh/vibe-button"></script>
 ```
+
 Put the settings button somewhere in the `<body>` of your HTML
 
 ```html
 <body>
-  <vibe-settings-button></vibe-settings-button>
+  <vibe-button></vibe-button>
 </body>
 ```
 
 To display it at a specific corner of the screen, set `position`. Default is `"bottom-right"`.
 
 ```html
-<vibe-settings-button position="top-right"></vibe-settings-button>
-<vibe-settings-button position="top-left"></vibe-settings-button>
-<vibe-settings-button position="bottom-right"></vibe-settings-button>
-<vibe-settings-button position="bottom-left"></vibe-settings-button>
+<vibe-button position="top-right"></vibe-button>
+<vibe-button position="top-left"></vibe-button>
+<vibe-button position="bottom-right"></vibe-button>
+<vibe-button position="bottom-left"></vibe-button>
 ```
 
 ## Usage
 
-The user can click the `<vibe-settings-button>` to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
+The user can click the `<vibe-button>` to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
 
 As a developer, you must query the settings object **after** the SDK script tag is loaded.
 You can instantiate an AzureOpenAI client instance using the settings from the button element:
 
 ```javascript
-const settings = document.querySelector("vibe-settings-button").settings;
+const settings = document.querySelector("vibe-button").settings;
 ```
 
 The `settings` object contains all the necessary properties to construct the `new AzureOpenAI({...})` instance as documented in `https://github.com/openai/openai-node`. Note that the `AzureOpenAI` constructor only requires `endpoint`, `apiKey`, `deployment`, and `apiVersion` properties. The `model` property is only used for creating the response.
@@ -43,7 +44,7 @@ The `settings` object contains all the necessary properties to construct the `ne
 import { AzureOpenAI } from 'https://esm.sh/openai';
 
 function submitChat() {
-  const settings = document.querySelector('vibe-settings-button').settings;
+  const settings = document.querySelector('vibe-button').settings;
   const client = new AzureOpenAI({
     endpoint: settings.endpoint,
     apiKey: settings.apiKey,
@@ -67,7 +68,7 @@ To stream the response, you can set `stream: true`
 import { AzureOpenAI } from 'https://esm.sh/openai';
 
 function streamChat() {
-  const settings = document.querySelector('vibe-settings-button').settings;
+  const settings = document.querySelector('vibe-button').settings;
   const client = new AzureOpenAI({
     endpoint: settings.endpoint,
     apiKey: settings.apiKey,

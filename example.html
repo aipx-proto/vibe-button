@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
-    <script type="module" src="https://esm.sh/vibe-sdk@0.0.9"></script>
+    <script type="module" src="https://esm.sh/vibe-button@0.0.2"></script>
   </head>
   <body>
-    <vibe-settings-button position="top-right"></vibe-settings-button>
+    <vibe-button position="top-right"></vibe-button>
     <div style="margin: 20px; max-width: 600px">
       <h2>Chat Stream Example</h2>
       <input type="text" id="userInput" placeholder="Type your message..." style="width: 400px; padding: 8px" />
@@ -22,7 +22,7 @@
       const output = document.getElementById("chatOutput");
 
       window.sendMessage = async function () {
-        const settings = document.querySelector("vibe-settings-button").settings;
+        const settings = document.querySelector("vibe-button").settings;
         const message = input.value.trim();
         if (!message) return;
 

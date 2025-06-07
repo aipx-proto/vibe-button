@@ -1,3 +1,3 @@
 import "./style.css";
 
-document.querySelector("vite-settings-button");
+document.querySelector("vite-button");

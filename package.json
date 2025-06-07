@@ -1,6 +1,6 @@
 {
-  "name": "vibe-sdk",
-  "version": "0.0.9",
+  "name": "vibe-button",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,8 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/vibe-sdk.js",
-      "require": "./dist/vibe-sdk.umd.cjs"
+      "import": "./dist/vibe-button.js",
+      "require": "./dist/vibe-button.umd.cjs"
     }
   },
   "files": [
@@ -20,8 +20,8 @@
     "README.md",
     "CHANGELOG.md"
   ],
-  "main": "./dist/vibe-sdk.umd.cjs",
-  "module": "./dist/vibe-sdk.js",
+  "main": "./dist/vibe-button.umd.cjs",
+  "module": "./dist/vibe-button.js",
   "devDependencies": {
     "@types/node": "^22.15.30",
     "prettier": "^3.5.3",

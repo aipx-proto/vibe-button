@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "lib/index.ts"),
-      name: "VibeSDK",
-      fileName: "vibe-sdk",
+      name: "VibeButton",
+      fileName: "vibe-button",
     },
     sourcemap: "inline",
   },

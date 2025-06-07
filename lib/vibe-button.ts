@@ -1,12 +1,12 @@
-import template from "./vibe-settings-button.html?raw";
+import template from "./vibe-button.html?raw";
 
-export class VibeSettingsButton extends HTMLElement {
-  static define(tag = "vibe-settings-button") {
+export class VibeButton extends HTMLElement {
+  static define(tag = "vibe-button") {
     if (customElements.get(tag)) {
       console.warn(`Custom element with tag "${tag}" is already defined. Did you re-define it by accident?`);
       return;
     }
-    customElements.define(tag, VibeSettingsButton);
+    customElements.define(tag, VibeButton);
   }
 
   shadowRoot = attachHTML(this, template);
