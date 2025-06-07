@@ -52,8 +52,9 @@
           });
 
           for await (const event of stream) {
-            if (event.output_text) {
-              output.textContent += event.output_text;
+            console.log(event);
+            if (event.type === "response.output_text.delta" && event.delta) {
+              output.textContent += event.delta;
             }
           }
 

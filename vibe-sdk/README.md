@@ -79,6 +79,15 @@ function streamChat() {
 
   for await (const event of stream) {
     console.log(event);
+    /** Example delta event:
+      {
+        "type": "response.output_text.delta",
+        "item_id": "msg_68438d02463081908f4fdce178bc5c74007cd4a1adc270d4",
+        "output_index": 0,
+        "content_index": 0,
+        "delta": "Sheep, "
+      }
+    */
   }
 }
 ```
