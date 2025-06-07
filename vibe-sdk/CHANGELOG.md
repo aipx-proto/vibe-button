@@ -1,4 +1,4 @@
-# v0.0.5
+# v0.0.6
 
 - Added: `getClient` method to get AzureOpenAI instance
 
