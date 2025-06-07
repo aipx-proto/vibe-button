@@ -1,4 +1,6 @@
-# Vibe SDK documentation
+# Vibe Button
+
+Connect your user to Azure OpenAI with a single button
 
 [Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-button-demo/)
 
@@ -31,7 +33,7 @@ To display it at a specific corner of the screen, set `position`. Default is `"b
 
 The user can click the `<vibe-button>` to open the settings dialog where they can provide Azure OpenAI endpoint, deployment name, and API key
 
-As a developer, you must query the settings object **after** the SDK script tag is loaded.
+As a developer, you can only query the settings object **after** the SDK script tag is loaded.
 You can instantiate an AzureOpenAI client instance using the settings from the button element:
 
 ```javascript
