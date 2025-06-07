@@ -7,7 +7,7 @@ A single button that connects your user to Azure OpenAI.*
 > One Button to rule them all  
 > One Button to find them  
 > One Button to bring them all  
-> and in Building 17  
+> and in Café 16  
 > Vibe them  
 > —Gandalf the Vibe
 
