@@ -1,3 +1,7 @@
+# v0.0.7
+
+- Changed: expose raw properties
+
 # v0.0.6
 
 - Added: `getClient` method to get AzureOpenAI instance

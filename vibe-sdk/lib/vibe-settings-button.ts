@@ -1,4 +1,3 @@
-import { AzureOpenAI } from "openai";
 import template from "./vibe-settings-button.html?raw";
 
 export class VibeSettingsButton extends HTMLElement {
@@ -208,6 +207,8 @@ export class VibeSettingsButton extends HTMLElement {
       const endpoint = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-endpoint")!.value;
       const apiKey = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-api-key")!.value;
       const deployment = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-deployment")!.value;
+
+      const { AzureOpenAI } = await import("https" + "://esm.sh/openai");
       const openai = new AzureOpenAI({
         dangerouslyAllowBrowser: true,
         endpoint,

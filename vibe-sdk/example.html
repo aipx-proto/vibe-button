@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
-    <script type="module" src="https://esm.sh/vibe-sdk@0.0.6"></script>
+    <script type="module" src="https://esm.sh/vibe-sdk@0.0.7"></script>
   </head>
   <body>
     <vibe-settings-button position="top-right"></vibe-settings-button>
@@ -15,12 +15,14 @@
       <div id="chatOutput" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 200px; white-space: pre-wrap"></div>
     </div>
 
-    <script>
+    <script type="module">
+      import { AzureOpenAI } from "https://esm.sh/openai";
+
       const input = document.getElementById("userInput");
       const output = document.getElementById("chatOutput");
 
-      async function sendMessage() {
-        const { client, model } = document.querySelector("vibe-settings-button");
+      window.sendMessage = async function () {
+        const settings = document.querySelector("vibe-settings-button").settings;
         const message = input.value.trim();
         if (!message) return;
 
@@ -29,13 +31,20 @@
         output.textContent += `User: ${message}\n\nAssistant: `;
 
         try {
-          if (!client) {
+          if (!settings || !settings.endpoint || !settings.apiKey) {
             output.textContent += "Please configure your Azure OpenAI settings first by clicking the settings button.\n\n";
             return;
           }
 
+          const client = new AzureOpenAI({
+            endpoint: settings.endpoint,
+            apiKey: settings.apiKey,
+            deployment: settings.deployment,
+            apiVersion: settings.apiVersion,
+          });
+
           const stream = await client.responses.create({
-            model,
+            model: settings.model,
             instructions: "You are a helpful assistant.",
             input: message,
             stream: true,
@@ -51,7 +60,7 @@
         } catch (error) {
           output.textContent += `Error: ${error.message}\n\n`;
         }
-      }
+      };
 
       // Allow Enter key to send message
       document.getElementById("userInput").addEventListener("keypress", (e) => {
