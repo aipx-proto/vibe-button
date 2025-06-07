@@ -41,6 +41,7 @@
             apiKey: settings.apiKey,
             deployment: settings.deployment,
             apiVersion: settings.apiVersion,
+            dangerouslyAllowBrowser: true,
           });
 
           const stream = await client.responses.create({

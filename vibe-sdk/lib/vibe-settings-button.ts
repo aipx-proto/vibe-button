@@ -141,8 +141,8 @@ export class VibeSettingsButton extends HTMLElement {
       try {
         const config = JSON.parse(savedConfig) as Record<string, string>;
         const endpoint = config["aoaiEndpoint"];
-        const apiKey = config["aoaiDeployment"];
-        const deployment = config["aoaiApiKey"];
+        const apiKey = config["aoaiApiKey"];
+        const deployment = config["aoaiDeployment"];
         if (!endpoint || !apiKey || !deployment) {
           const isOpenConfigConfirmed = window.confirm("Incomplete Azure OpenAI configuration found. Would you like to reconfigure it?");
           if (isOpenConfigConfirmed) this.dialog.showModal();
@@ -204,21 +204,18 @@ export class VibeSettingsButton extends HTMLElement {
     this.testOutput.textContent = '⏳ Asking LLM to say "Hello"...';
 
     try {
-      const endpoint = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-endpoint")!.value;
-      const apiKey = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-api-key")!.value;
-      const deployment = this.shadowRoot.querySelector<HTMLInputElement>("#aoai-deployment")!.value;
-
       const { AzureOpenAI } = await import("https" + "://esm.sh/openai");
+      const settings = this.settings;
       const openai = new AzureOpenAI({
         dangerouslyAllowBrowser: true,
-        endpoint,
-        apiKey,
-        deployment,
-        apiVersion: "2025-04-01-preview",
+        endpoint: settings.endpoint,
+        apiKey: settings.apiKey,
+        deployment: settings.deployment,
+        apiVersion: settings.apiVersion,
       });
 
       const response = await openai.responses.create({
-        model: deployment,
+        model: settings.model,
         input: `say "hello" and nothing else`,
         max_output_tokens: 32,
       });

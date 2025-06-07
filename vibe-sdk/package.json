@@ -1,6 +1,6 @@
 {
   "name": "vibe-sdk",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,11 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "lib",
+    "example.html",
+    "README.md",
+    "CHANGELOG.md"
   ],
   "main": "./dist/vibe-sdk.umd.cjs",
   "module": "./dist/vibe-sdk.js",

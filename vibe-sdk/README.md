@@ -44,6 +44,7 @@ function submitChat() {
     apiKey: settings.apiKey,
     deployment: settings.deployment,
     apiVersion: settings.apiVersion,
+    dangerouslyAllowBrowser: true
   });
   const response = await client.responses.create({
     model: settings.model,
@@ -58,10 +59,20 @@ function submitChat() {
 To stream the response, you can set `stream: true`
 
 ```javascript
+import { AzureOpenAI } from 'https://esm.sh/openai';
+
 function streamChat() {
-  const { client, model } = document.querySelector("vibe-settings-button");
+  const settings = document.querySelector('vibe-settings-button').settings;
+  const client = new AzureOpenAI({
+    endpoint: settings.endpoint,
+    apiKey: settings.apiKey,
+    deployment: settings.deployment,
+    apiVersion: settings.apiVersion,
+    dangerouslyAllowBrowser: true
+  });
+
   const stream = await client.responses.create({
-    model,
+    model: settings.model,
     input: 'Say "Sheep sleep deep" ten times fast!',
     stream: true,
   });
