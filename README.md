@@ -4,6 +4,13 @@ Connect your user to Azure OpenAI with a single button.
 
 [Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-button-demo/)
 
+> One Button to rule them all  
+> One Button to find them  
+> One Button to bring them all  
+> and in Building 17  
+> Vibe them  
+> —Gandalf the Vibe
+
 ## Install
 
 Include a script tag in <head> of html
