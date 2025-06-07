@@ -1,5 +1,7 @@
 # Vibe SDK documentation
 
+[Live demo](https://protovibe.azurewebsites.net/users/chusun/vibe-sdk-demo/)
+
 ## Install
 
 Include a script tag in <head> of html
