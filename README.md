@@ -16,7 +16,9 @@ Connect your user to Azure OpenAI with a single button.
 Include a script tag in <head> of html
 
 ```html
-<script type="module" src="https://esm.sh/vibe-button"></script>
+<head>
+  <script type="module" src="https://esm.sh/vibe-button"></script>
+</head>
 ```
 
 Put the settings button somewhere in the `<body>` of your HTML
