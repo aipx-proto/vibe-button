@@ -1,5 +1,9 @@
 import { codeToHtml } from "shiki";
 import { VibeButton } from "../lib/vibe-button";
+import advancedPrompt from "./advanced-prompt.md?raw";
+import installPrompt from "./install-prompt.md?raw";
+import messagePrompt from "./message-prompt.md?raw";
+import resetPrompt from "./reset-prompt.md?raw";
 import "./style.css";
 
 // Wait for DOM to be ready
@@ -18,44 +22,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const installCodeContainer = document.getElementById("install-code") as HTMLElement;
   const installOptions = document.getElementById("install-options") as HTMLFieldSetElement;
   const locateButton = document.getElementById("locate-button") as HTMLButtonElement;
+  const installButton = document.getElementById("install-button") as HTMLButtonElement;
+  const installPromptContainer = document.getElementById("install-prompt") as HTMLElement;
+  const messagePromptContainer = document.getElementById("message-prompt") as HTMLElement;
+  const resetPromptContainer = document.getElementById("reset-prompt") as HTMLElement;
+  const advancedPromptContainer = document.getElementById("advanced-prompt") as HTMLElement;
+
+  installButton.addEventListener("click", (event) => {
+    vibeButton.removeAttribute("hidden");
+    animateVibeButton(vibeButton, event);
+  });
 
   // On click, use Web Animation API to bring the button to where the mouse is and move it back, like a boomerang
   // The entire process should be 2 seconds long
   locateButton.addEventListener("click", (event) => {
-    const button = vibeButton as HTMLElement;
-    if (!button) return;
-
-    // Get mouse position relative to the viewport
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-
-    // Get button's current position
-    const buttonRect = button.getBoundingClientRect();
-    const buttonCenterX = buttonRect.left + buttonRect.width / 2;
-    const buttonCenterY = buttonRect.top + buttonRect.height / 2;
-
-    // Calculate the distance to move
-    const deltaX = mouseX - buttonCenterX;
-    const deltaY = mouseY - buttonCenterY;
-
-    // Get the current computed transform
-    const computedStyle = getComputedStyle(button);
-    const currentTransform = computedStyle.transform;
-    const initialTransform = currentTransform === "none" ? "translate(0, 0)" : currentTransform;
-
-    // Create keyframes for the boomerang effect
-    const keyframes = [
-      { transform: initialTransform, offset: 0 },
-      { transform: `${initialTransform} translate(${deltaX}px, ${deltaY}px) scale(1.5)`, offset: 0.5 },
-      { transform: initialTransform, offset: 1 },
-    ];
-
-    // Animate the button with custom easing that slows down at center
-    button.animate(keyframes, {
-      duration: 1500,
-      easing: "cubic-bezier(0.3,1,.5,0)", // Slows down in middle, speeds up at ends
-      fill: "backwards",
-    });
+    animateVibeButton(vibeButton, event);
   });
 
   // react to events
@@ -102,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCode(userInput.value, sampleCodeContainer);
   renderResetCode(resetCodeContainer);
   renderInstallCode(installCodeContainer);
+  renderInstallPrompt(installPromptContainer);
+  renderMessagePrompt(messagePromptContainer);
+  renderResetPrompt(resetPromptContainer);
+  renderAdvancedPrompt(advancedPromptContainer);
 
   // Handle send button click
   sendButton.addEventListener("click", async () => {
@@ -131,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resetButton.addEventListener("click", () => {
     vibeButton.reset();
     userInput.value = "";
-    resetOutput.textContent = "Conversation reset.";
+    resetOutput.textContent = "✅ Reset successful.";
   });
 
   // Allow Enter key to send (Shift+Enter for new line)
@@ -199,4 +184,78 @@ async function renderInstallCode(container: HTMLElement, position?: string) {
   } catch (error) {
     container.textContent = `Error rendering install code: ${error instanceof Error ? error.message : "Unknown error"}`;
   }
+}
+
+async function renderInstallPrompt(container: HTMLElement) {
+  try {
+    const html = await codeToHtml(installPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    container.innerHTML = html;
+  } catch (error) {
+    container.textContent = `Error rendering install prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
+  }
+}
+
+async function renderMessagePrompt(container: HTMLElement) {
+  try {
+    const html = await codeToHtml(messagePrompt, { lang: "markdown", theme: "one-dark-pro" });
+    container.innerHTML = html;
+  } catch (error) {
+    container.textContent = `Error rendering message prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
+  }
+}
+
+async function renderResetPrompt(container: HTMLElement) {
+  try {
+    const html = await codeToHtml(resetPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    container.innerHTML = html;
+  } catch (error) {
+    container.textContent = `Error rendering reset prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
+  }
+}
+
+async function renderAdvancedPrompt(container: HTMLElement) {
+  try {
+    const html = await codeToHtml(advancedPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    container.innerHTML = html;
+  } catch (error) {
+    container.textContent = `Error rendering advanced prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
+  }
+}
+
+// Extract animation logic into reusable function
+function animateVibeButton(vibeButton: HTMLElement, event: MouseEvent) {
+  const button = vibeButton as HTMLElement;
+  if (!button) return;
+
+  // Get mouse position relative to the viewport
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+
+  // Get button's current position
+  const buttonRect = button.getBoundingClientRect();
+  const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+  const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+  // Calculate the distance to move
+  const deltaX = mouseX - buttonCenterX;
+  const deltaY = mouseY - buttonCenterY;
+
+  // Get the current computed transform
+  const computedStyle = getComputedStyle(button);
+  const currentTransform = computedStyle.transform;
+  const initialTransform = currentTransform === "none" ? "translate(0, 0)" : currentTransform;
+
+  // Create keyframes for the boomerang effect
+  const keyframes = [
+    { transform: initialTransform, offset: 0 },
+    { transform: `${initialTransform} translate(${deltaX}px, ${deltaY}px) scale(1.5)`, offset: 0.5 },
+    { transform: initialTransform, offset: 1 },
+  ];
+
+  // Animate the button with custom easing that slows down at center
+  button.animate(keyframes, {
+    duration: 1500,
+    easing: "cubic-bezier(0.3,1,.5,0)", // Slows down in middle, speeds up at ends
+    fill: "backwards",
+  });
 }

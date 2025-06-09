@@ -7,12 +7,12 @@
     <script type="module" src="/lib/index.ts"></script>
   </head>
   <body>
-    <vibe-button></vibe-button>
+    <vibe-button hidden></vibe-button>
 
     <div class="demo-container">
-      <h1>Vibe Button Live Doc</h1>
+      <h1>Vibe Doc for Vibe Button</h1>
       <section>
-        <h2>Install</h2>
+        <h2>1. Install</h2>
         <p>Modify the HTML file to load this library into your project. You can custom the specific corner of the screen the button should appears at.</p>
         <fieldset id="install-options">
           <legend>Button position</legend>
@@ -24,14 +24,17 @@
           </div>
         </fieldset>
         <div id="install-code"></div>
+        <div class="button-group">
+          <button id="install-button">Run</button>
+        </div>
         <details>
-          <summary>Integration prompt</summary>
-          <pre><code></code></pre>
+          <summary>Help me vibe install 😎</summary>
+          <div id="install-prompt"></div>
         </details>
       </section>
 
       <section>
-        <h2>Setup</h2>
+        <h2>2. Setup</h2>
         <p>
           Click the AI Foundry Logo button (<button id="locate-button">where is it?</button>) to open the settings dialog. Enter endpoint, deployment, and API
           key. By the way, the button is draggable.
@@ -48,9 +51,12 @@
       </section>
 
       <section>
-        <h2>Prompt</h2>
+        <h2>3. Prompt</h2>
         <p>You can send messages to the button. The button will remember previously sent messages until you reload the page or reset its state</p>
-        <textarea id="user-input" placeholder="Enter your prompt here..." rows="2">Hello</textarea>
+        <fieldset>
+          <legend>Input</legend>
+          <textarea id="user-input" placeholder="Enter your prompt here..." rows="2">Hello</textarea>
+        </fieldset>
         <div id="sample-code"></div>
 
         <div class="button-group">
@@ -60,13 +66,13 @@
         <div id="prompt-output-area" class="output-area"></div>
 
         <details>
-          <summary>Integration prompt</summary>
-          <pre><code></code></pre>
+          <summary>Help me vibe code 😎</summary>
+          <div id="message-prompt"></div>
         </details>
       </section>
 
       <section>
-        <h2>Reset thread</h2>
+        <h2>4. Reset thread</h2>
         <p>Reseting the thread and start a new thread with the button.</p>
         <div id="reset-code"></div>
         <div class="button-group">
@@ -76,8 +82,20 @@
         <div id="reset-output-area" class="output-area"></div>
 
         <details>
-          <summary>Integration prompt</summary>
-          <pre><code></code></pre>
+          <summary>Help me vibe code 😎</summary>
+          <div id="reset-prompt"></div>
+        </details>
+      </section>
+
+      <section>
+        <h2>5. Advanced usage</h2>
+        <p>You can use the full settings from the vibe button to initialize the Official SDK from OpenAI</p>
+
+        <div id="advanced-code"></div>
+
+        <details>
+          <summary>Help me vibe code 😎</summary>
+          <div id="advanced-prompt"></div>
         </details>
       </section>
     </div>
