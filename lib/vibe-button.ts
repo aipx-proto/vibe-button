@@ -26,7 +26,18 @@ export class VibeButton extends HTMLElement {
     this.abortControllers.push(abortController);
 
     this.loadFormValues();
-    this.form.addEventListener("input", () => this.saveFormValues(), { signal: abortController.signal });
+    this.form.addEventListener("input", (e) => {
+      const input = (e.target as HTMLElement).closest("input");
+      if (!input) return;
+
+      this.dispatchEvent(
+        new CustomEvent("input-changed", {
+          detail: { name: input.name, value: input.value },
+        })
+      );
+
+      this.saveFormValues(), { signal: abortController.signal };
+    });
 
     // Add drag functionality
     let isDragging = false;
@@ -241,8 +252,10 @@ export class VibeButton extends HTMLElement {
 
       console.log(response.output_text);
       this.testOutput.textContent += `\n✅ Test successful. LLM says "${response.output_text}"`;
+      this.dispatchEvent(new CustomEvent("test-done", { detail: { isSuccess: true } }));
     } catch (error: any) {
       this.testOutput.textContent += `\n❌ Test failed. ${[error?.name, error?.message].filter(Boolean).join(" ")}`;
+      this.dispatchEvent(new CustomEvent("test-done", { detail: { isSuccess: false } }));
     }
   }
 }

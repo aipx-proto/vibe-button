@@ -33,6 +33,15 @@
       <section>
         <h2>Setup</h2>
         <p>Click the AI Foundry Logo button to open the settings dialog. Enter endpoint, deployment, and API key.</p>
+        <fieldset>
+          <legend>Tasks</legend>
+          <div class="options-group task-checklist">
+            <label><input type="checkbox" disabled data-task="endpoint" /> Set endpoint</label>
+            <label><input type="checkbox" disabled data-task="deployment" /> Set deployment</label>
+            <label><input type="checkbox" disabled data-task="api-key" /> Set API key</label>
+            <label><input type="checkbox" disabled data-task="test-connection" /> Test the connection</label>
+          </div>
+        </fieldset>
       </section>
 
       <section>
@@ -42,8 +51,11 @@
         <div id="sample-code"></div>
 
         <div class="button-group">
-          <button id="send-button">Send</button>
+          <button id="send-button">Run</button>
         </div>
+
+        <div id="prompt-output-area" class="output-area"></div>
+
         <details>
           <summary>Integration prompt</summary>
           <pre><code></code></pre>
@@ -55,15 +67,16 @@
         <p>Reseting the thread and start a new thread with the button.</p>
         <div id="reset-code"></div>
         <div class="button-group">
-          <button id="reset-button">Reset</button>
+          <button id="reset-button">Run</button>
         </div>
+
+        <div id="reset-output-area" class="output-area"></div>
+
         <details>
           <summary>Integration prompt</summary>
           <pre><code></code></pre>
         </details>
       </section>
-
-      <div id="output-area"></div>
     </div>
 
     <script type="module" src="/src/main.ts"></script>

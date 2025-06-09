@@ -12,10 +12,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const sampleCodeContainer = document.getElementById("sample-code") as HTMLElement;
   const sendButton = document.getElementById("send-button") as HTMLButtonElement;
   const resetButton = document.getElementById("reset-button") as HTMLButtonElement;
-  const outputArea = document.getElementById("output-area") as HTMLDivElement;
+  const promptOutput = document.getElementById("prompt-output-area") as HTMLDivElement;
+  const resetOutput = document.getElementById("reset-output-area") as HTMLDivElement;
   const resetCodeContainer = document.getElementById("reset-code") as HTMLElement;
   const installCodeContainer = document.getElementById("install-code") as HTMLElement;
   const installOptions = document.getElementById("install-options") as HTMLFieldSetElement;
+
+  // react to events
+  vibeButton.addEventListener("test-done", (e) => {
+    const isSuccess = e.detail.isSuccess;
+    document.querySelector<HTMLInputElement>(`[data-task="test-connection"]`)!.checked = isSuccess;
+  });
+  vibeButton.addEventListener("input-changed", (e) => {
+    switch (e.detail.name) {
+      case "aoaiEndpoint": {
+        const isValid = e.detail.value.startsWith("https://");
+        document.querySelector<HTMLInputElement>(`[data-task="endpoint"]`)!.checked = isValid;
+        break;
+      }
+      case "aoaiDeployment": {
+        const isValid = e.detail.value.length > 0;
+        document.querySelector<HTMLInputElement>(`[data-task="deployment"]`)!.checked = isValid;
+        break;
+      }
+      case "aoaiApiKey": {
+        const isValid = e.detail.value.length > 0;
+        document.querySelector<HTMLInputElement>(`[data-task="api-key"]`)!.checked = isValid;
+        break;
+      }
+    }
+  });
 
   // render code preview
   userInput.addEventListener("input", async () => {
@@ -40,20 +66,20 @@ document.addEventListener("DOMContentLoaded", () => {
   sendButton.addEventListener("click", async () => {
     const prompt = userInput.value.trim();
     if (!prompt) {
-      outputArea.textContent = "Please enter a prompt.";
+      promptOutput.textContent = "Please enter a prompt.";
       return;
     }
 
     // Disable buttons during processing
     sendButton.disabled = true;
     resetButton.disabled = true;
-    outputArea.textContent = "Sending request...";
+    promptOutput.textContent = "Sending request...";
 
     try {
       const response = await vibeButton.send(prompt);
-      outputArea.textContent = response;
+      promptOutput.textContent = response;
     } catch (error) {
-      outputArea.textContent = `Error: ${error instanceof Error ? error.message : "Unknown error"}`;
+      promptOutput.textContent = `Error: ${error instanceof Error ? error.message : "Unknown error"}`;
     } finally {
       sendButton.disabled = false;
       resetButton.disabled = false;
@@ -64,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resetButton.addEventListener("click", () => {
     vibeButton.reset();
     userInput.value = "";
-    outputArea.textContent = "Conversation reset.";
+    resetOutput.textContent = "Conversation reset.";
   });
 
   // Allow Enter key to send (Shift+Enter for new line)

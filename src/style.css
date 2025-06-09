@@ -58,11 +58,14 @@ fieldset {
   cursor: not-allowed;
 }
 
-#output-area {
+.output-area {
+  &:empty {
+    display: none;
+  }
+
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  min-height: 100px;
   white-space: pre-wrap;
 }
 
@@ -74,4 +77,24 @@ fieldset {
 .shiki {
   padding: 0.5rem;
   border-radius: 4px;
+}
+
+/* customize checkbox to use emoji check icons. We can use psuedo-elements to achieve this */
+.task-checklist {
+  label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    input[type="checkbox"] {
+      display: none;
+    }
+  }
+  label:has(input[type="checkbox"]:checked)::before {
+    content: "✅";
+    margin-right: 0.5rem;
+  }
+  label:has(input[type="checkbox"]:not(:checked))::before {
+    content: "⏳";
+    margin-right: 0.5rem;
+  }
 }
