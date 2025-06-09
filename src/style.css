@@ -27,6 +27,12 @@ body {
   max-width: 600px;
   margin: 2rem auto;
   padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+fieldset {
+  padding: 0.25rem 0.5rem;
 }
 
 #user-input {
@@ -37,7 +43,7 @@ body {
 }
 
 .button-group {
-  margin: 1rem 0;
+  margin: 0.25rem 0;
   display: flex;
   gap: 0.5rem;
 }
@@ -58,4 +64,14 @@ body {
   border-radius: 4px;
   min-height: 100px;
   white-space: pre-wrap;
+}
+
+.options-group {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.shiki {
+  padding: 0.5rem;
+  border-radius: 4px;
 }

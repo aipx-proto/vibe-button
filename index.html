@@ -7,18 +7,50 @@
     <script type="module" src="/lib/index.ts"></script>
   </head>
   <body>
-    <vibe-button position="top-left"></vibe-button>
-    <vibe-button position="top-right"></vibe-button>
-    <vibe-button position="bottom-left"></vibe-button>
-    <vibe-button position="bottom-right"></vibe-button>
+    <vibe-button></vibe-button>
 
     <div class="demo-container">
       <h1>Vibe Button API Demo</h1>
-      <textarea id="user-input" placeholder="Enter your prompt here..." rows="4"></textarea>
-      <div class="button-group">
-        <button id="send-button">Send</button>
-        <button id="reset-button">Reset</button>
-      </div>
+      <section>
+        <h2>Install</h2>
+        <fieldset id="install-options">
+          <legend>Options</legend>
+          <div class="options-group">
+            <label><input type="radio" name="position" value="top-left" /> Top Left</label>
+            <label><input type="radio" name="position" value="top-right" /> Top Right</label>
+            <label><input type="radio" name="position" value="bottom-left" /> Bottom Left</label>
+            <label><input type="radio" name="position" value="bottom-right" checked /> Bottom Right (default)</label>
+          </div>
+        </fieldset>
+        <div id="install-code">
+          <div class="button-group">
+            <button id="install-button">Install</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Config</h2>
+      </section>
+
+      <section>
+        <h2>Prompt</h2>
+        <textarea id="user-input" placeholder="Enter your prompt here..." rows="2">Hello</textarea>
+        <div id="sample-code"></div>
+
+        <div class="button-group">
+          <button id="send-button">Send</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Reset thread</h2>
+        <div id="reset-code"></div>
+        <div class="button-group">
+          <button id="reset-button">Reset</button>
+        </div>
+      </section>
+
       <div id="output-area"></div>
     </div>
 
