@@ -11,4 +11,5 @@ export default defineConfig({
     },
     sourcemap: "inline",
   },
+  base: "vibe-button",
 });
