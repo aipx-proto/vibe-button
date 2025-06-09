@@ -104,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await vibeButton.send(prompt);
       promptOutput.textContent = response;
+      console.log("AI response:", response);
     } catch (error) {
       promptOutput.textContent = `Error: ${error instanceof Error ? error.message : "Unknown error"}`;
     } finally {
@@ -132,7 +133,7 @@ function hygradeCodeTemplate(prompt: string) {
   return `
 document.querySelector("vibe-button")
   .send(${JSON.stringify(prompt)})
-  .then(response => console.log(response));
+  .then(response => console.log("AI response:", response));
   `.trim();
 }
 
