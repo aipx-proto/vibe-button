@@ -2,7 +2,7 @@
 
 A single button that connects your user to Azure OpenAI.*
 
-[Live demo](https://aipx-proto.github.io/vibe-button/)
+[Live documentation + demo](https://aipx-proto.github.io/vibe-button/)
 
 > One Button to rule them all  
 > One Button to find them  
