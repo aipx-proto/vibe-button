@@ -135,6 +135,7 @@ export class VibeButton extends HTMLElement {
     const response = await this.agent.ask(prompt, {
       endpoint: this.settings.endpoint,
       deployment: this.settings.deployment,
+      apiKey: this.settings.apiKey,
       apiVersion: this.settings.apiVersion,
     });
 

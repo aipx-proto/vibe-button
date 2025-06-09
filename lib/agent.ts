@@ -1,6 +1,7 @@
 export interface AgentChatOptions {
   endpoint: string;
   deployment: string;
+  apiKey: string;
   apiVersion: string;
 }
 
@@ -13,6 +14,7 @@ export class Agent {
       dangerouslyAllowBrowser: true,
       endpoint: options.endpoint,
       deployment: options.deployment,
+      apiKey: options.apiKey,
       apiVersion: options.apiVersion,
     });
 
