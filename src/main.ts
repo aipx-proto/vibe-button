@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const installPromptContainer = document.getElementById("install-prompt") as HTMLElement;
   const messagePromptContainer = document.getElementById("message-prompt") as HTMLElement;
   const resetPromptContainer = document.getElementById("reset-prompt") as HTMLElement;
+  const advancedCodeContainer = document.getElementById("advanced-code") as HTMLElement;
   const advancedPromptContainer = document.getElementById("advanced-prompt") as HTMLElement;
 
   installButton.addEventListener("click", (event) => {
@@ -94,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderInstallPrompt(installPromptContainer);
   renderMessagePrompt(messagePromptContainer);
   renderResetPrompt(resetPromptContainer);
+  renderAdvancedCode(advancedCodeContainer);
   renderAdvancedPrompt(advancedPromptContainer);
 
   // Handle send button click
@@ -171,7 +173,7 @@ async function renderResetCode(container: HTMLElement) {
   }
 }
 
-function hygradeInstallTemplate(position?: string) {
+function hydrateInstallTemplate(position?: string) {
   return `
 <head>
   <!-- Existing code --> 
@@ -185,9 +187,39 @@ function hygradeInstallTemplate(position?: string) {
  `.trim();
 }
 
+function hydrateAdvancedPrompt() {
+  return `
+const settings = document.querySelector('vibe-button').settings;
+const client = new AzureOpenAI({
+  endpoint: settings.endpoint,
+  apiKey: settings.apiKey,
+  deployment: settings.deployment,
+  apiVersion: settings.apiVersion,
+  dangerouslyAllowBrowser: true
+});
+const response = await client.responses.create({
+  model: settings.model,
+  instructions: 'You are a coding assistant that talks like a pirate',
+  input: 'Are semicolons optional in JavaScript?',
+});
+
+console.log(response.output_text);
+  `.trim();
+}
+
+async function renderAdvancedCode(container: HTMLElement) {
+  try {
+    const advancedCode = hydrateAdvancedPrompt();
+    const html = await codeToHtml(advancedCode, { lang: "javascript", theme: "one-dark-pro", transformers });
+    container.innerHTML = html;
+  } catch (error) {
+    container.textContent = `Error rendering advanced code: ${error instanceof Error ? error.message : "Unknown error"}`;
+  }
+}
+
 async function renderInstallCode(container: HTMLElement, position?: string) {
   try {
-    const installCode = hygradeInstallTemplate(position);
+    const installCode = hydrateInstallTemplate(position);
     const html = await codeToHtml(installCode, { lang: "html", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
