@@ -1,4 +1,4 @@
-<button id="trigger" style="--x: 0; --y: 0">
+<button id="trigger">
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="logo" viewBox="0 0 18 18">
     <defs>
       <style>
@@ -74,13 +74,14 @@
 </button>
 <style>
   :host {
-  }
-
-  button#trigger {
     position: fixed;
     bottom: 10px;
     right: 10px;
     transform: translate(var(--x, 0), var(--y, 0));
+    display: block;
+  }
+
+  button#trigger {
     background: none;
     display: flex;
     align-items: center;
@@ -103,18 +104,18 @@
     }
   }
 
-  :host([position="top-left"]) button#trigger {
+  :host([position="top-left"]) {
     top: 10px;
     left: 10px;
     right: auto;
     bottom: auto;
   }
-  :host([position="top-right"]) button#trigger {
+  :host([position="top-right"]) {
     top: 10px;
     right: 10px;
     bottom: auto;
   }
-  :host([position="bottom-left"]) button#trigger {
+  :host([position="bottom-left"]) {
     bottom: 10px;
     left: 10px;
     right: auto;

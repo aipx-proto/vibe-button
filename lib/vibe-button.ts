@@ -56,7 +56,7 @@ export class VibeButton extends HTMLElement {
         startY = e.clientY;
 
         // Get current CSS variable values or default to 0
-        const computedStyle = getComputedStyle(this.trigger);
+        const computedStyle = getComputedStyle(this);
         initialX = parseInt(computedStyle.getPropertyValue("--x")) || 0;
         initialY = parseInt(computedStyle.getPropertyValue("--y")) || 0;
 
@@ -81,8 +81,8 @@ export class VibeButton extends HTMLElement {
         const newX = initialX + deltaX;
         const newY = initialY + deltaY;
 
-        this.trigger.style.setProperty("--x", `${newX}px`);
-        this.trigger.style.setProperty("--y", `${newY}px`);
+        this.style.setProperty("--x", `${newX}px`);
+        this.style.setProperty("--y", `${newY}px`);
       },
       { signal: abortController.signal }
     );

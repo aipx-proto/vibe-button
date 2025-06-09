@@ -58,6 +58,15 @@ fieldset {
   cursor: not-allowed;
 }
 
+#locate-button {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: help;
+}
+
 .output-area {
   &:empty {
     display: none;

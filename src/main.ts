@@ -17,6 +17,46 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetCodeContainer = document.getElementById("reset-code") as HTMLElement;
   const installCodeContainer = document.getElementById("install-code") as HTMLElement;
   const installOptions = document.getElementById("install-options") as HTMLFieldSetElement;
+  const locateButton = document.getElementById("locate-button") as HTMLButtonElement;
+
+  // On click, use Web Animation API to bring the button to where the mouse is and move it back, like a boomerang
+  // The entire process should be 2 seconds long
+  locateButton.addEventListener("click", (event) => {
+    const button = vibeButton as HTMLElement;
+    if (!button) return;
+
+    // Get mouse position relative to the viewport
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    // Get button's current position
+    const buttonRect = button.getBoundingClientRect();
+    const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+    const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+    // Calculate the distance to move
+    const deltaX = mouseX - buttonCenterX;
+    const deltaY = mouseY - buttonCenterY;
+
+    // Get the current computed transform
+    const computedStyle = getComputedStyle(button);
+    const currentTransform = computedStyle.transform;
+    const initialTransform = currentTransform === "none" ? "translate(0, 0)" : currentTransform;
+
+    // Create keyframes for the boomerang effect
+    const keyframes = [
+      { transform: initialTransform, offset: 0 },
+      { transform: `${initialTransform} translate(${deltaX}px, ${deltaY}px) scale(1.5)`, offset: 0.5 },
+      { transform: initialTransform, offset: 1 },
+    ];
+
+    // Animate the button with custom easing that slows down at center
+    button.animate(keyframes, {
+      duration: 1500,
+      easing: "cubic-bezier(0.3,1,.5,0)", // Slows down in middle, speeds up at ends
+      fill: "backwards",
+    });
+  });
 
   // react to events
   vibeButton.addEventListener("test-done", (e) => {
@@ -53,7 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const target = e.target as HTMLInputElement;
     if (target.name === "position") {
       const newPosition = target.value;
-      document.querySelector("vibe-button")?.setAttribute("position", newPosition);
+      vibeButton.setAttribute("position", newPosition);
+      vibeButton.removeAttribute("style"); // Remove inline styles to reset position
       renderInstallCode(installCodeContainer, newPosition);
     }
   });
