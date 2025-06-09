@@ -1,3 +1,4 @@
+import { Agent } from "./agent";
 import template from "./vibe-button.html?raw";
 
 export class VibeButton extends HTMLElement {
@@ -126,6 +127,23 @@ export class VibeButton extends HTMLElement {
   disconnectedCallback() {
     this.abortControllers.forEach((controller) => controller.abort());
     this.abortControllers = [];
+  }
+
+  private agent = new Agent();
+
+  async send(prompt: string): Promise<string> {
+    const response = await this.agent.ask(prompt, {
+      endpoint: this.settings.endpoint,
+      deployment: this.settings.deployment,
+      apiVersion: this.settings.apiVersion,
+    });
+
+    console.log("Agent response:", response);
+    return response;
+  }
+
+  reset() {
+    this.agent.reset();
   }
 
   get settings(): {
