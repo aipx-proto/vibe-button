@@ -16,7 +16,7 @@ Then add the vibe-button element in `<body>` element like this
 </body>
 ```
 
-The button is fixed positioned as a float button. If needed, it can be displayed in any of the four corners. The default position is `bottom-right`. Note that the button is positioned within the shadow DOM so you cannot manipulate its position with CSS. This is by design.
+The button is fixed positioned as a float button. If needed, it can be displayed in any of the four corners. The default position is `bottom-right`. Note that the button is positioned within the shadow DOM so you cannot manipulate its position with CSS. This is by design. However, you may set a higher z-index to ensure the button is on top of other elements.
 
 ```html
 <vibe-button position="top-left"></vibe-button>
