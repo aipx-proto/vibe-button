@@ -1,3 +1,7 @@
+# v0.0.4
+
+- Fixed: z-index for button
+
 # v0.0.3
 
 - Added: vibe doc
