@@ -1,3 +1,4 @@
+import { transformerCopyButton } from "@rehype-pretty/transformers";
 import { codeToHtml } from "shiki";
 import { VibeButton } from "../lib/vibe-button";
 import advancedPrompt from "./advanced-prompt.md?raw";
@@ -5,6 +6,13 @@ import installPrompt from "./install-prompt.md?raw";
 import messagePrompt from "./message-prompt.md?raw";
 import resetPrompt from "./reset-prompt.md?raw";
 import "./style.css";
+
+const transformers = [
+  transformerCopyButton({
+    visibility: "always",
+    feedbackDuration: 3_000,
+  }),
+];
 
 // Wait for DOM to be ready
 document.addEventListener("DOMContentLoaded", () => {
@@ -140,7 +148,7 @@ document.querySelector("vibe-button")
 async function renderCode(code: string, container: HTMLElement) {
   try {
     const promptCode = hygradeCodeTemplate(code);
-    const html = await codeToHtml(promptCode, { lang: "javascript", theme: "one-dark-pro" });
+    const html = await codeToHtml(promptCode, { lang: "javascript", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering code: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -156,7 +164,7 @@ document.querySelector("vibe-button").reset();
 async function renderResetCode(container: HTMLElement) {
   try {
     const resetCode = hygradeResetTemplate();
-    const html = await codeToHtml(resetCode, { lang: "javascript", theme: "one-dark-pro" });
+    const html = await codeToHtml(resetCode, { lang: "javascript", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering reset code: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -180,7 +188,7 @@ function hygradeInstallTemplate(position?: string) {
 async function renderInstallCode(container: HTMLElement, position?: string) {
   try {
     const installCode = hygradeInstallTemplate(position);
-    const html = await codeToHtml(installCode, { lang: "html", theme: "one-dark-pro" });
+    const html = await codeToHtml(installCode, { lang: "html", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering install code: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -189,7 +197,7 @@ async function renderInstallCode(container: HTMLElement, position?: string) {
 
 async function renderInstallPrompt(container: HTMLElement) {
   try {
-    const html = await codeToHtml(installPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    const html = await codeToHtml(installPrompt, { lang: "markdown", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering install prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -198,7 +206,7 @@ async function renderInstallPrompt(container: HTMLElement) {
 
 async function renderMessagePrompt(container: HTMLElement) {
   try {
-    const html = await codeToHtml(messagePrompt, { lang: "markdown", theme: "one-dark-pro" });
+    const html = await codeToHtml(messagePrompt, { lang: "markdown", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering message prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -207,7 +215,7 @@ async function renderMessagePrompt(container: HTMLElement) {
 
 async function renderResetPrompt(container: HTMLElement) {
   try {
-    const html = await codeToHtml(resetPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    const html = await codeToHtml(resetPrompt, { lang: "markdown", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering reset prompt: ${error instanceof Error ? error.message : "Unknown error"}`;
@@ -216,7 +224,7 @@ async function renderResetPrompt(container: HTMLElement) {
 
 async function renderAdvancedPrompt(container: HTMLElement) {
   try {
-    const html = await codeToHtml(advancedPrompt, { lang: "markdown", theme: "one-dark-pro" });
+    const html = await codeToHtml(advancedPrompt, { lang: "markdown", theme: "one-dark-pro", transformers });
     container.innerHTML = html;
   } catch (error) {
     container.textContent = `Error rendering advanced prompt: ${error instanceof Error ? error.message : "Unknown error"}`;

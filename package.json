@@ -28,5 +28,8 @@
     "shiki": "^3.6.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@rehype-pretty/transformers": "^0.13.2"
   }
 }

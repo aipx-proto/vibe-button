@@ -108,6 +108,19 @@ p {
   margin-block: 0.5rem;
 }
 
+.rehype-pretty-copy {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  top: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #333;
+    border: 1px solid #aaa;
+  }
+}
+
 .shiki {
   padding: 0.5rem;
   border-radius: 4px;
