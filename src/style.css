@@ -108,17 +108,23 @@ p {
   margin-block: 0.5rem;
 }
 
+.shiki:hover {
+  .rehype-pretty-copy {
+    opacity: 1;
+    background-color: #282c34;
+  }
+}
+
 .rehype-pretty-copy {
   background: none;
+  backdrop-filter: none !important;
   border: 1px solid transparent;
   border-radius: 4px;
-  opacity: 0.625;
+  opacity: 0;
   top: 4px;
   cursor: pointer;
 
   &:hover {
-    opacity: 1;
-    background-color: #333;
     border: 1px solid #aaa;
   }
 }
