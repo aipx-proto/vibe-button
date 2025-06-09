@@ -13,8 +13,9 @@
       <h1>Vibe Button Live Doc</h1>
       <section>
         <h2>Install</h2>
+        <p>Modify the HTML file to load this library into your project. You can custom the specific corner of the screen the button should appears at.</p>
         <fieldset id="install-options">
-          <legend>Options</legend>
+          <legend>Button position</legend>
           <div class="options-group">
             <label><input type="radio" name="position" value="top-left" /> Top Left</label>
             <label><input type="radio" name="position" value="top-right" /> Top Right</label>
@@ -22,33 +23,44 @@
             <label><input type="radio" name="position" value="bottom-right" checked /> Bottom Right (default)</label>
           </div>
         </fieldset>
-        <div id="install-code">
-          <div class="button-group">
-            <button id="install-button">Install</button>
-          </div>
-        </div>
+        <div id="install-code"></div>
+        <details>
+          <summary>Integration prompt</summary>
+          <pre><code></code></pre>
+        </details>
       </section>
 
       <section>
-        <h2>Config</h2>
+        <h2>Setup</h2>
+        <p>Click the AI Foundry Logo button to open the settings dialog. Enter endpoint, deployment, and API key.</p>
       </section>
 
       <section>
         <h2>Prompt</h2>
+        <p>You can send messages to the button. The button will remember previously sent messages until you reload the page or reset its state</p>
         <textarea id="user-input" placeholder="Enter your prompt here..." rows="2">Hello</textarea>
         <div id="sample-code"></div>
 
         <div class="button-group">
           <button id="send-button">Send</button>
         </div>
+        <details>
+          <summary>Integration prompt</summary>
+          <pre><code></code></pre>
+        </details>
       </section>
 
       <section>
         <h2>Reset thread</h2>
+        <p>Reseting the thread and start a new thread with the button.</p>
         <div id="reset-code"></div>
         <div class="button-group">
           <button id="reset-button">Reset</button>
         </div>
+        <details>
+          <summary>Integration prompt</summary>
+          <pre><code></code></pre>
+        </details>
       </section>
 
       <div id="output-area"></div>
