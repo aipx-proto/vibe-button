@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get the first vibe-button element
   const vibeButton = document.querySelector("vibe-button") as VibeButton;
 
-  // Get DOM elements
+  // Get DOM elementsh
   const userInput = document.getElementById("user-input") as HTMLTextAreaElement;
   const sampleCodeContainer = document.getElementById("sample-code") as HTMLElement;
   const sendButton = document.getElementById("send-button") as HTMLButtonElement;
@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // On click, use Web Animation API to bring the button to where the mouse is and move it back, like a boomerang
   // The entire process should be 2 seconds long
   locateButton.addEventListener("click", (event) => {
+    vibeButton.removeAttribute("hidden");
     animateVibeButton(vibeButton, event);
   });
 
