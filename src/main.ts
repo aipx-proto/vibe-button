@@ -190,6 +190,8 @@ function hydrateInstallTemplate(position?: string) {
 
 function hydrateAdvancedPrompt() {
   return `
+import { AzureOpenAI } from "https://esm.sh/openai";
+
 const settings = document.querySelector('vibe-button').settings;
 const client = new AzureOpenAI({
   endpoint: settings.endpoint,
