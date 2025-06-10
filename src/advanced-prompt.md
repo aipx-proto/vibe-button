@@ -18,7 +18,7 @@ I need to load the script dynamically in JavaScript:
 import("https://esm.sh/vibe-button");
 ```
 
-Or load the library script in HTML like this
+Or load the library in HTML like this
 
 ```html
 <script type="module" src="https://esm.sh/vibe-button"></script>
