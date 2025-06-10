@@ -1,19 +1,21 @@
-Help me install the vibe-button library in the approperiate HTML file. First load the library script in `<head>` element like this
+Help me install the vibe-button library in the approperiate file.
 
-```html
-<head>
-  <!-- existing code -->
-  <script type="module" src="https://esm.sh/vibe-button"></script>
-</head>
+You can load the script dynamically in JavaScript:
+
+```javascript
+import("https://esm.sh/vibe-button");
 ```
 
-Then add the vibe-button element in `<body>` element like this
+Or load the library script in HTML like this
 
 ```html
-<body>
-  <!-- existing code -->
-  <vibe-button></vibe-button>
-</body>
+<script type="module" src="https://esm.sh/vibe-button"></script>
+```
+
+Then add the vibe-button element like this
+
+```html
+<vibe-button></vibe-button>
 ```
 
 The button is fixed positioned as a float button. If needed, it can be displayed in any of the four corners. The default position is `bottom-right`. Note that the button is positioned within the shadow DOM so you cannot manipulate its position with CSS. This is by design. However, you may set a higher z-index to ensure the button is on top of other elements.

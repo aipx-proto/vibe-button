@@ -4,30 +4,24 @@ Help me implement an AI Agent chat experience.
 
 I'm using the AzureOpenAI node.js SDK in a browser environment.
 
+I can initialize the AzureOpenSDK using the settings from the `<vibe-button>` element on the page. The button is a custom web component that provides an easy way to interact with the Azure OpenAI API.
+
 ```javascript
 import { AzureOpenAI } from "https://esm.sh/openai";
 ```
 
 ## Install vibe-button
 
-I can initialize the SDK using the settings from the `<vibe-button>` element on the page. The button is a custom web component that provides an easy way to interact with the Azure OpenAI API.
+I need to load the script dynamically in JavaScript:
 
-If needed, I can install the vibe-button library in the approperiate HTML file.
-
-```html
-<head>
-  <!-- existing code -->
-  <script type="module" src="https://esm.sh/vibe-button"></script>
-</head>
+```javascript
+import("https://esm.sh/vibe-button");
 ```
 
-Then add the vibe-button element in `<body>` element like this
+Or load the library script in HTML like this
 
 ```html
-<body>
-  <!-- existing code -->
-  <vibe-button></vibe-button>
-</body>
+<script type="module" src="https://esm.sh/vibe-button"></script>
 ```
 
 The button is fixed positioned as a float button. If needed, it can be displayed in any of the four corners. The default position is `bottom-right`. Note that the button is positioned within the shadow DOM so you cannot manipulate its position with CSS. This is by design.
