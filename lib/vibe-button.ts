@@ -1,4 +1,5 @@
 import { Agent } from "./agent";
+// @ts-ignore
 import template from "./vibe-button.html?raw";
 
 export class VibeButton extends HTMLElement {
