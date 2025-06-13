@@ -1,3 +1,7 @@
+# v0.0.5
+
+- Added: ambient types for DOM
+
 # v0.0.4
 
 - Fixed: z-index for button

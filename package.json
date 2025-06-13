@@ -7,6 +7,7 @@
     "build": "tsc && vite build && vite build --config vite-site.config.ts",
     "preview": "vite preview"
   },
+  "types": "lib/types.ts",
   "exports": {
     ".": {
       "import": "./dist/vibe-button.js",
