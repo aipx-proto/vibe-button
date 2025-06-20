@@ -75,6 +75,25 @@ function submitChat() {
 }
 ```
 
+### Programmatically update settings
+
+You can programmatically update the settings stored in the `<vibe-button>` using the `updateSettings` method. This is useful for pre-filling or changing the endpoint, API key, or deployment from your own code:
+
+```javascript
+const vibeButton = document.querySelector('vibe-button');
+vibeButton.updateSettings({
+  aoaiEndpoint: 'https://your-endpoint.openai.azure.com/',
+  aoaiApiKey: 'your-api-key',
+  aoaiDeployment: 'your-deployment-name',
+});
+```
+
+- `aoaiEndpoint`: Azure OpenAI endpoint URL
+- `aoaiApiKey`: Azure OpenAI API key
+- `aoaiDeployment`: Azure OpenAI deployment name
+
+The settings dialog and the `.settings` property will reflect these changes.
+
 To stream the response, you can set `stream: true`
 
 ```javascript

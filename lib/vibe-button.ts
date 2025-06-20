@@ -159,6 +159,20 @@ export class VibeButton extends HTMLElement {
     this.agent.reset();
   }
 
+  public updateSettings(
+    settings: Partial<{
+      aoaiEndpoint: string;
+      aoaiApiKey: string;
+      aoaiDeployment: string;
+    }>
+  ) {
+    const savedData = localStorage.getItem("vibe-settings");
+    const currentSettings = savedData ? JSON.parse(savedData) : {};
+    const updatedSettings = { ...currentSettings, ...settings };
+    localStorage.setItem("vibe-settings", JSON.stringify(updatedSettings));
+    this.loadFormValues();
+  }
+
   get settings(): {
     endpoint: string;
     apiKey: string;
