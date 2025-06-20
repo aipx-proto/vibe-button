@@ -1,3 +1,7 @@
+# v0.0.8
+
+- Fixed: prompt for credential infinite loop
+
 # v0.0.7
 
 - Added: `updateSettings` method to programmatically update settings

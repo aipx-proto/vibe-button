@@ -19,6 +19,7 @@ export class VibeButton extends HTMLElement {
   private deleteButton = this.shadowRoot.querySelector<HTMLButtonElement>("#delete")!;
   private form = this.shadowRoot.querySelector<HTMLFormElement>("#settings-form")!;
   private testOutput = this.shadowRoot.querySelector<HTMLDivElement>("#test-output")!;
+  private promptedForCredential = false;
 
   private abortControllers = [] as AbortController[];
 
@@ -189,6 +190,9 @@ export class VibeButton extends HTMLElement {
         const apiKey = config["aoaiApiKey"];
         const deployment = config["aoaiDeployment"];
         if (!endpoint || !apiKey || !deployment) {
+          if (this.promptedForCredential) return emptyConfig;
+
+          this.promptedForCredential = true;
           const isOpenConfigConfirmed = window.confirm("Incomplete Azure OpenAI configuration found. Would you like to reconfigure it?");
           if (isOpenConfigConfirmed) this.dialog.showModal();
           return emptyConfig;
