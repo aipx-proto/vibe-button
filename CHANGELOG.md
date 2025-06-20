@@ -1,3 +1,7 @@
+# v0.0.7
+
+- Added: `updateSettings` method to programmatically update settings
+
 # v0.0.6
 
 - Added: ambient types for DOM
