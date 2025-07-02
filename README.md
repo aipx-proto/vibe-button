@@ -132,3 +132,7 @@ function streamChat() {
 
 The `AzureOpenAI` constructor is not provided by the SDK.
 If in the browser environment, we recommend using `https://esm.sh/openai`. Otherwise, you can use `openai` package from npm.
+
+## Contribute
+
+[Read the manual](./CONTRIBUTIONS.md)
