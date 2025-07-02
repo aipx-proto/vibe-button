@@ -9,7 +9,8 @@ export class Agent {
   private threadId: string | undefined;
 
   async ask(message: string, options: AgentChatOptions): Promise<string> {
-    const { AzureOpenAI } = await import("https" + "://esm.sh/openai");
+    /** @ts-ignore */
+    const { AzureOpenAI } = await import("https//esm.sh/openai");
     const client = new AzureOpenAI({
       dangerouslyAllowBrowser: true,
       endpoint: options.endpoint,
